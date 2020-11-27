@@ -1,19 +1,20 @@
-#Buenas prácticas Arduino
+# Buenas prácticas Arduino
 
-###Organizacion de archivos
+### Organizacion de archivos
 
-#####Documentos necesarios a la hora de desarrollar un proyecto con Arduino
+##### Documentos necesarios a la hora de desarrollar un proyecto con Arduino
 
 -	Planilla de componentes y costos: Ira reflejado los materiales necesarios con un estimativo de costos con fecha de última actualización (se pueden usar links de MercadoLibre, Nubbeo, locales TDF o Bs As). También debe especificarse si se necesita algún trabajo tercerizado: Fabricación de PCB, matriz, mecanizado de piezas, etc.
 
-#####Código:
+##### Código:
 
 - Pines.h: contiene las definiciones de los pines con su descripción en el comentario
 Se debe incluir el modelo de placa que se utilizará de manera de dejar en claro sin duda cual es el hardware que se utilizó a la hora del diseño. En caso de ser compatible con varios modelos de placa, puede definirse distintas definiciones para distintos modelos.
 
 	Ejemplo:
 
-      // STM32F103T8R8
+
+    // STM32F103T8R8
       #if defined (ARDUINO_ARCH_STM32F1)
 
         #define RELAY1        PD2 // Salida de relay comando sentido de giro
@@ -39,6 +40,7 @@ Se debe incluir el modelo de placa que se utilizará de manera de dejar en claro
 Esto permite que puedan modificarse fácilmente los valores iniciales, rangos, limites, tiempos, etc sin acudir al código principal para hacerlo 
 
   Ejemplo:
+
 
 
     #define Version       1.0    // Version del equipo
@@ -76,7 +78,9 @@ Esto permite que puedan modificarse fácilmente los valores iniciales, rangos, l
 - Funciones.cpp: Contiene las funciones estándar utilizadas en el proyecto, de manera que el código principal quede lo mas limpio y legible posible. Algunas funciones estándar podrían ser: SetupPins(), SetupLCD(), WriteLCD(), etc
 Notar que deben usarse los “include” a los archivos “pines.h” y “settings.h” además del propio “funciones.h”
 Notar también, que no deben repetirse las llamadas a hardware en más de un archivo. Por ejemplo, si hemos optado por colocar las funciones del LCD en “funciones.h”, desde otros archivos haremos uso de las funciones LCD que solo se encontran en “funciones.h”. 
+
 Ejemplo:
+
 
 
     #include <Arduino.h>
@@ -149,6 +153,9 @@ Ejemplo:
 
 - Funciones.h: Contiene la declaración de las funciones utilizadas en Funciones.cpp
 
+Ejemplo:
+
+
 
     #ifndef FUNCIONES_H
       #define FUNCIONES_H
@@ -160,6 +167,9 @@ Ejemplo:
     #endif
 
 - main.ino: Contiene el flujo principal del código fuente. El mismo debe ser legible y facil de interpretar, haciendo llamadas a librerias especificas de cada tecnología. Hará buen uso de variables externas para compartir informacion vital con otras funciones declaradas en otros archivos, evitando el guardado innecesario de variables temporales u ocasionales.
+
+Ejemplo:
+
 
 
     // Autor: Andres Moraldo
@@ -181,7 +191,7 @@ Ejemplo:
     extern String LCD_Row4;
     int i=0;
 
-void setup() {
+    void setup() {
       delay(200);
       Serial.begin(115200);
       delay(1000);
@@ -215,8 +225,9 @@ void setup() {
       }
     }
 
-#####Esquemático:
+##### Esquemático:
 Realizar un archivo esquematico del hardware implementado, donde por etapas pueda construirse y replicarse el dispositivo
 
-#####Diseños 3d:
+##### Diseños 3d:
 En los casos que se realicen diseños 3d de carcazas o componentes, incluir los archivos STL junto con un archivo de texto con la configuracion necesaria para imprimir (altura de capa, cantidad de relleno, etc). Ademas, incluir archivo de diseño (SKP en el caso de sketchup)
+
